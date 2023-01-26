@@ -10,7 +10,7 @@ jobs:
       - run: echo "yeett"
       - run:
           name: "Say hello"
-          command: "sleep 10m; echo Hello!"
+          command: "sleep 2m; echo Hello!"
 
 workflows:
   my-workflow:
