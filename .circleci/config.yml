@@ -8,9 +8,8 @@ jobs:
       - checkout # check out the code in the project directory
       - run: echo "hello world" # run the `echo` command
       - run: echo "yeett"
-      - run:
-          name: "Say hello"
-          command: "sleep 2m; echo Hello!"
+      - run: echo "fresh build pls"
+
 
 workflows:
   my-workflow:
