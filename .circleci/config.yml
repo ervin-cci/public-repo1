@@ -1,22 +1,47 @@
+# Inside config.yml
 version: 2.1
+orbs:
+  cli: circleci/circleci-cli@0.1.9
+  #test
 
 jobs:
-  hello-job:
-    docker:
-      - image: cimg/base:current # the primary container, where your job's commands are run
+  test:
+    executor: cli/default
     steps:
-      - checkout # check out the code in the project directory
-      - run: echo "hello world" # run the `echo` command
-      - run: echo "yeett"
-      - run:
-          name: "Say hello"
-          command: "sleep 2m; echo Hello!"
+      - run: echo "this job is using the orb's default executor"
+      - cli/install
+      - cli/setup
+      - run: cat /home/circleci/.circleci/cli.yml
+      - run: circleci policy test
+      - run: echo "the CLI is now installed"
+  myjob:
+    docker:
+      - image: cimg/base:2023.11
+    steps:
+      - run: echo "hello world"
+  build-and-test-job:
+    docker:
+      - image: cimg/base:2023.11
+    steps:
+      - run: echo "hello world"      
+  build:
+    docker:
+      - image: cimg/base:2023.11
+    steps:
+      - run: echo "hello world"         
 
+          
 workflows:
-  my-workflow:
+  workflow:
     jobs:
-      - hello-job
-
-
-      #test
-      
+      - myjob: 
+          type: approval
+      - build:
+          context: jun20          
+      - test: 
+          requires: 
+            - myjob
+      - build-and-test-job:
+          requires:
+            - myjob
+            - test         
