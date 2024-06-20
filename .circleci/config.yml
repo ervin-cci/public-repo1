@@ -28,7 +28,8 @@ jobs:
     docker:
       - image: cimg/base:2023.11
     steps:
-      - run: echo "hello world"         
+      - run: echo "hello world"   
+      - run: echo $foo
 
           
 workflows:
